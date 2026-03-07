@@ -8,3 +8,4 @@ now moving to advanced
  some edge cases
  
  today i understand the about virtual environment. 
+still revision 
