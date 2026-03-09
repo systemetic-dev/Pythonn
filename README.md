@@ -14,4 +14,5 @@ now moving to advanced
   undrestanding some python module.
   
   • django Rest framework 
+  pagination,
   
