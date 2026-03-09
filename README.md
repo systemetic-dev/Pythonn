@@ -3,7 +3,7 @@
  basics clear
  • if-else 
  • loops
-  functions
+ • functions
 now moving to advanced 
  OOPs
  some edge cases
@@ -13,4 +13,5 @@ now moving to advanced
   understand virtual environment and why we use.
   undrestanding some python module.
   
+  • django Rest framework 
   
