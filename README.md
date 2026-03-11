@@ -14,5 +14,5 @@ now moving to advanced
   undrestanding some python module.
   
   • django Rest framework 
-  pagination, filtering , authentication, Authorization , selenium,
+  pagination, filtering , authentication, Authorization , selenium,OpenCV
    
