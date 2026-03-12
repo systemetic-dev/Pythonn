@@ -5,6 +5,7 @@
  • loops
  • functions
  • Lists
+ • Tuples
 now moving to advanced 
  OOPs
  some edge cases
