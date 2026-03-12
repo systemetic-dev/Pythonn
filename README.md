@@ -1,11 +1,11 @@
 ### Pythonn
  In this i practice how to write clean          code
- basics clear
- • if-else 
- • loops
- • functions
- • Lists
- • Tuples
+ Basics clear
+     • if-else 
+     • loops
+     • functions
+     • Lists
+     • Tuples
 now moving to advanced 
  OOPs
  some edge cases
