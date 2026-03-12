@@ -1,9 +1,10 @@
 ### Pythonn
- [In this i practice how to write clean          code]
+ In this i practice how to write clean          code
  basics clear
  • if-else 
  • loops
  • functions
+ • Lists
 now moving to advanced 
  OOPs
  some edge cases
