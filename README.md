@@ -6,8 +6,8 @@
      • functions
      • Lists
      • Tuples
-      • Classes, Objects
-      • virtual environment
+     • Classes, Objects
+     • virtual environment
 now moving to advanced 
  OOPs
  some edge cases
