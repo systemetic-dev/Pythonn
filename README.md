@@ -6,6 +6,7 @@
      • functions
      • Lists
      • Tuples
+       Classes, Objects
 now moving to advanced 
  OOPs
  some edge cases
