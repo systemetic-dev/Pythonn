@@ -6,7 +6,7 @@
      • functions
      • Lists
      • Tuples
-     • Classes, Objects
+     • Classes, Objects, inheritance 
      • virtual environment
 now moving to advanced 
  OOPs
