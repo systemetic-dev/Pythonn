@@ -9,7 +9,6 @@
      • Classes, Objects(instance), inheritance , abstraction , polymorphism,
      • virtual environment
 now moving to advanced 
- OOPs
  some edge cases
  
     today i understand the about virtual environment. 
