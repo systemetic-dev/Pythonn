@@ -8,6 +8,7 @@
      • Tuples
      • Classes, Objects(instance), inheritance , abstraction , polymorphism,
      • virtual environment
+     • pip
 now moving to advanced 
  some edge cases
  
