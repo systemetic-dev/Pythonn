@@ -1,5 +1,5 @@
 ### Pythonn
-''' In this i practice how to write clean code'''
+### In this i practice how to write clean code
     Basics clear
      • if-else 
      • loops
