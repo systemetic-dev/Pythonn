@@ -1,6 +1,6 @@
 ### Pythonn
 ### In this i practice how to write clean code
-   - Basics clear
+       Basics clear
      • if-else 
      • loops
      • functions and recursion 
