@@ -1,6 +1,6 @@
 ### Pythonn
 ### In this i practice how to write clean code
-    Basics clear
+   - Basics clear
      • if-else 
      • loops
      • functions and recursion 
@@ -10,7 +10,7 @@
      • virtual environment
      • pip
      • 
-now moving to advanced 
+# now moving to advanced 
 
 ### Still revision 
   understand virtual environment and why we use.
