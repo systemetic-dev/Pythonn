@@ -13,7 +13,7 @@
 # now moving to advanced 
 
 ### Still revision 
-  understand virtual environment and why we use.
+- understand virtual environment and why we use.
   undrestanding some python module.
   
     • django Rest framework 
