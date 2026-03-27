@@ -14,8 +14,8 @@
 
 ### Still revision 
 - understand virtual environment and why we use.
-  undrestanding some python module.
+- undrestanding some python module.
   
--• django Rest framework 
+- Django Rest framework 
         pagination, filtering , authentication, Authorization , selenium, OpenCV, caching , searching.
     
