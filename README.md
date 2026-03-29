@@ -1,3 +1,5 @@
++----------------------+ |   Client (Browser)   | +----------------------+ │ │ HTTP Request ▼ +----------------------+ |   Server (Backend)   | +----------------------+ │ │ Process Logic (DB, Auth, etc.) ▼ +----------------------+ |   HTTP Response      | | (JSON / HTML / Data) | +----------------------+ │ ▼ +----------------------+ |   Client (Display)   | +----------------------+
+
 # 🐍 Python Practice Repository
 
 This repository contains my learning and practice work focused on writing **clean, readable, and efficient Python code**.
