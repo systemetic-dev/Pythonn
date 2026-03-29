@@ -361,4 +361,36 @@ API Interaction & SQL Queries (1:52:30 - End)
 Parameterized Queries: A crucial security mechanism to prevent SQL Injection attacks by separating SQL code from user-provided data (1:53:40).
 Indexes: Database objects that drastically speed up data retrieval, similar to an index in a book (2:21:30).
 Triggers: Automatic actions that occur when a specific event happens in the database, such as automatically updating a `updated_at` timestamp whenever a row is modified (2:41:00 - 2:43:40).
+
+Comprehensive overview of caching, defining it as a mechanism to decrease the time and effort required to perform tasks (0:03). Technically, it involves keeping a subset of primary data in a faster, more accessible location based on usage frequency and probability (0:17). Caching is crucial for high-performance applications tracking latency in double-digit milliseconds (1:42).
+
+### Real-World Examples of Caching
+Google Search (1:51): To avoid recomputing expensive results for frequent queries (like the weather) billions of times, Google uses a distributed in-memory caching system worldwide (3:27). A cache hit returns results instantly, while a cache miss triggers the full, expensive computation and then caches the new result for future use (4:12).
+Netflix (5:48): Netflix uses Content Delivery Networks (CDNs) to serve massive amounts of data (terabytes) to millions of users (6:12). Edge locations are strategically placed servers worldwide that cache popular content closer to users, significantly reducing latency and server load compared to fetching everything from a central originating server in the US (7:31).
+Social Media - Twitter/X (12:19): Platforms analyze massive, real-time data to identify trending topics (12:57). To prevent server crashes from recalculating these trends every time a user refreshes, the calculated trends are cached in an in-memory key-value store like Redis (16:13). Trends aren't dynamically changing by the second, making them ideal for caching (15:24).
+
+### Levels of Caching for Backend Engineers (18:14)
+1.  Network Level (19:04): Includes CDNs (as described for Netflix) and DNS caching, which maps domain names to IP addresses (19:38). DNS queries use caching at various levels to minimize latency (26:22).
+2.  Hardware Level (35:10): CPU caches (L1, L2, L3) are used for high-speed data access (35:36).
+3.  Software Level (19:01): Utilizes in-memory key-value stores like Redis or Memcached (42:06).
+
+### In-Memory Caching Technologies (42:06)
+These databases are considered in-memory because they store data in RAM, not on disks, making data access incredibly fast (42:15). They are key-value based, meaning data structures are simple keys pointing to values (like JSON, strings, or lists) (42:06).
+
+#### Caching Strategies
+Lazy Caching / Cache Aside (43:03): The application checks the cache; if the data isn't there (cache miss), it fetches it from the primary database, stores it in the cache, and returns it (43:21).
+Write-Through Caching (44:12): Every time data is updated in the database, it is simultaneously updated in the cache (44:17). This ensures the cache is always fresh but adds overhead to write operations (44:50).
+
+#### Eviction Policies (46:27)
+Because RAM is limited, caches must eventually delete old data to make room for new data (46:30).
+No Eviction (46:50): The system returns an error when the cache is full (46:54).
+LRU (Least Recently Used) (47:10): Deletes data that hasn't been accessed for the longest time (47:15).
+LFU (Least Frequently Used) (48:24): Deletes data with the lowest access frequency (48:30).
+TTL (Time to Live) (49:38): Keys are automatically invalidated after a set amount of time (49:43).
+
+### Use Cases for Redis (51:24)
+Database Query Caching (51:28): Caching results of heavy queries with complex joins or aggregations (51:38).
+Session Storing (55:51): Storing authentication tokens in memory for fast retrieval (56:05).
+API Caching (56:58): Caching responses from slow or expensive third-party APIs (57:05).
+Rate Limiting (1:02:40): Managing API request limits in real-time to protect backend services (1:02:45).
     
