@@ -295,5 +295,70 @@ API Best Practices (196:00 - end)
 Interactive Documentation: Use tools like Swagger/OpenAPI for testing and documentation (196:51).
 Consistency: Maintain consistent payload structures (CamelCase for JSON) across all resources (197:34).
 Sensible Defaults: Define default values on the server side (e.g., default status 'active') to make client requests simpler (199:53).
-Avoid Abbreviations: Use clear, verbose field names (e.g., `description`, not `desc`) (200:35).
+Avoid Abbreviations: Use clear, verbose field names (e.g., `description`, not `desc`) (200:35)
+
+Introduction to databases and data persistence for backend development, using PostgreSQL as the primary example.
+
+Introduction to Data Persistence (0:00 - 1:55)
+What is a database? It is a way to persist information across different sessions so that data survives even after the application stops running (0:27).
+Why is it crucial? Without persistence, users would lose all progress, such as completed tasks in a to-do list app, every time they closed the app (1:38).
+Broad Definition: A database is simply a structured storage system that allows you to create, read, update, and delete (CRUD) data (3:25).
+Examples of databases: Smartphone contact lists, browser `localStorage`, and even a simple text file for taking notes (2:10 - 3:11).
+
+Disk-Based Databases vs. Caching (3:50 - 8:26)
+Backend Databases: In backend engineering, we specifically refer to disk-based databases (hard drives or SSDs) (4:13).
+Disk vs. RAM:
+RAM (Main Memory): Extremely fast but expensive and volatile (loses data on power loss) (4:42).
+Disk (Secondary Memory): Slower but cheaper and persistent (5:18).
+Trade-off: We choose disk storage to handle massive amounts of data efficiently without high costs (7:18).
+Caching: Technologies like Redis store data in RAM for extreme speed, used specifically for frequently accessed data, not as primary storage (8:00).
+
+Database Management Systems (DBMS) (8:40 - 25:50)
+Definition: A DBMS is software designed to efficiently manage data storage, retrieval, and manipulation (9:29).
+Responsibilities:
+    1.  Data Organization: Efficiently storing data for quick access (10:13).
+    2.  Access: Providing CRUD operations (10:25).
+    3.  Integrity: Ensuring the accuracy and validity of data (e.g., ensuring a payment field only accepts numbers, not text) (10:34).
+    4.  Security: Protecting data from unauthorized access (12:09).
+Why not just use files?
+Parsing: Writing code to manually parse text files is slow and error-prone (13:05).
+Lack of Structure: Text files cannot enforce data consistency (14:49).
+Concurrency: Handling multiple users updating the same file simultaneously is complex (15:37).
+Relational vs. Non-Relational (23:10): The video focuses on Relational Database Management Systems (RDBMS), which organize data into structured tables.
+
+Why PostgreSQL? (26:30 - 32:45)
+Open Source: Free to use and inspect (26:34).
+SQL Standard: Sticks closely to SQL standards, making it easy to migrate to other systems like MySQL if necessary (26:58).
+Extensible: Highly customizable with extensive documentation (28:01).
+Json Support: Excellent support for Json and JsonB data types, offering flexibility similar to non-relational databases (28:36).
+
+PostgreSQL Data Types Demo (32:45 - 53:23)
+`serial` / `bigserial`: Auto-incrementing integers, typically used for primary key IDs (34:15).
+`numeric` / `decimal`: Exact numeric types, essential for financial data where accuracy is critical (37:40).
+`real` / `double precision`: Floating-point numbers, used for speed when exact precision isn't necessary (40:00).
+`char` / `varchar` / `text`: String types. Character pads extra spaces, Varchar has a length limit, and Text has no limit. The video recommends using `text` for better performance and simplicity (40:38 - 45:00).
+`boolean`: True or False values (50:18).
+`date` / `time` / `timestamp`: For storing temporal data (50:24).
+`json` / `jsonb`: For storing structured Json data. Jsonb is faster to process (53:04).
+
+Database Migrations (56:00 - 1:02:22)
+What are they? A version control system for your database schema (56:30).
+Why use them? They track changes to the database structure (tables, columns, indexes) over time (56:56).
+Up & Down Migrations: `up` applies changes, `down` reverts them (57:00).
+
+Project Management Platform Modeling (1:02:22 - 1:41:00)
+Tools: Using DbMate for migrations and TablePlus for GUI database management (1:02:30 - 32:50).
+Defining `enum` Types: Creating custom types for constrained values like `userrole` (admin, member) or `taskstatus` (open, closed) (1:05:00).
+Designing Tables:
+`users`: Basic user information (1:09:00).
+`projects`: Associated with a creator (1:15:30).
+`tasks`: Connected to projects and assigned to users (1:20:00).
+
+Seeding Test Data (1:41:00 - 1:44:00)
+Seeding: The process of inserting dummy data into the database for development and testing purposes (1:41:20).
+
+API Interaction & SQL Queries (1:52:30 - End)
+Parameterized Queries: A crucial security mechanism to prevent SQL Injection attacks by separating SQL code from user-provided data (1:53:40).
+Indexes: Database objects that drastically speed up data retrieval, similar to an index in a book (2:21:30).
+Triggers: Automatic actions that occur when a specific event happens in the database, such as automatically updating a `updated_at` timestamp whenever a row is modified (2:41:00 - 2:43:40).
     
