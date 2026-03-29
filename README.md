@@ -641,4 +641,46 @@ Shutdown Order:
     2.  Close the Database connection (31:44-32:06).
     3.  Close the Background Job Processor (e.g., Redis) (33:09-33:19).
 Outcome: The logs show all workers finishing and the server exiting properly after receiving Ctrl+C (33:23-34:55).
+
+Comprehensive guide to backend security (0:00), emphasizing that security is not just about techniques but adopting a mindset of paranoia to prevent destructive business and financial impacts. The core philosophy is to never trust user input and to identify where data crosses boundaries between systems (241:18).Key Topics Covered:
+
+### 1. The Attacker Mindset & Boundaries (4:36)
+Attackers don't care about frameworks; they care about developer assumptions (5:30).
+Crucial question: Where did the developer make an assumption about input validation, authentication, or request origin?
+Attackers look for where data crosses trust boundaries (e.g., user input to database, user input to HTML) (241:35).
+
+### 2. Injection Attacks (7:55)
+Root Cause: Mixing data with control syntax/code.
+SQL Injection (SQLi) (7:55): Occurs when concatenating strings to build queries. Example: `SELECT * FROM users WHERE email = '` + `userInput` + `';` allows an attacker to manipulate the query structure.
+Prevention - Parameterized Queries (29:27): Separate SQL code from user data. Use API placeholders (e.g., `?` or `$1`) so the database treats input purely as data, not executable code.
+Command Injection (39:43): Similar to SQLi, but injecting malicious commands into operating system shells (e.g., `system("ping " + host)`).
+Prevention (45:25): Use argument arrays instead of string concatenation to treat inputs as safe arguments, not executable commands.
+
+### 3. Authentication & Password Security (46:36)
+Password Hashing (58:35): Never store plain text passwords. Databases get breached daily. Use slow, salted cryptographic hashes like Argon2 (preferred) or `bcrypt`.
+Salting: Adding unique random data to each password before hashing to prevent rainbow table attacks.
+Stateful vs. Stateless (52:00):
+Stateful: Server tracks sessions (e.g., Redis). Allows manual revocation of user sessions.
+Stateless: JSON Web Tokens (JWT). Server doesn't track sessions, making revocation difficult (must rely on token expiration).
+
+### 4. Session Management & Cookie Security (1:07:17)
+JWT Structure (1:32:41): Header, Payload (claims like `userId`, `isAdmin`), and Signature (signed with a secret key).
+Cookie Flags (1:24:02):
+`HttpOnly`: Prevents JavaScript from reading the cookie (protects against XSS).
+`Secure`: Cookie only sent over HTTPS.
+`SameSite`: Controls cross-origin requests. Set to `Strict` or `Lax` to prevent CSRF attacks (1:28:50).
+
+### 5. Rate Limiting (1:32:41)
+Purpose: Prevent brute-force attacks and DDoS (denial of service) (1:51:10).
+Strategy: Limit requests per IP or user ID per second/minute. Implement CAPTCHA for suspicious traffic.
+
+### 6. Authorization Vulnerabilities (1:37:31)
+Horizontal Authorization (BOLA) (2:12:41): User A accesses User B's data (e.g., `/api/invoice/1` changed to `/api/invoice/2`).
+Vertical Authorization (BFLA) (2:06:40): A regular user accesses administrative functions.
+Prevention: Always verify if the authenticated user has permission to access the specific object/function being requested in the database query (2:05:39).
+
+### 7. Cross-Site Scripting (XSS) (2:17:21)
+Definition: Injecting malicious JavaScript that executes in a victim's browser (2:19:01).
+Danger: Stealing cookies (session hijacking), redirecting users, or performing actions on behalf of the user.
+Prevention: Sanitize user input and escape output (convert `
     
