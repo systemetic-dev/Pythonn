@@ -240,4 +240,60 @@ User Information: Stores user ID or roles determined by the authentication middl
 Security: Prevents clients from spoofing user IDs in database queries by extracting the ID from the trusted context rather than the raw request body (56:11).
 Tracing: Stores a unique Request ID (UUID) to log and track the request across microservices (57:56).
 Cancellation: Sends cancellation signals or deadlines to downstream services to prevent hanging requests (59:31).
+
+Guide to REST API design from a backend engineering perspective, covering theoretical foundations, practical implementation patterns, and best practices for creating intuitive interfaces.
+
+Introduction and Context (0:00 - 15:00)
+Purpose: To standardize API design rules and guidelines to avoid common confusion among developers (0:46).
+The Goal: Focus on business logic rather than worrying about REST standards during execution (4:01).
+History of the Web: Tim Berners-Lee initiated the World Wide Web in 1990, inventing URIs, HTTP, and HTML (4:55).
+Evolution of Standards: The transition from Multi-Page Applications (MPAs) to Single Page Applications (SPAs) changed how APIs are consumed, moving toward JSON-heavy, client-side rendering (2:30).
+
+REST Architectural Style (10:00 - 20:41)
+Coined by Roy Fielding in his PhD dissertation in 2000 (13:50).
+Core Constraints:
+    1. Resource Identification: Using URIs to identify resources (9:49).
+    2. Manipulation Through Representations: Clients manipulate resources via representations (e.g., JSON) rather than accessing the database directly (9:51).
+    3. Self-Descriptive Messages: Messages contain metadata explaining how to process them (9:52).
+    4. HATEOAS: Hypermedia as the Engine of Application State (9:55).
+    5. Uniform Interface: Consistent interface across services (10:01).
+    6. Layered System: Allows for intermediate components like load balancers (10:11).
+    7. Cache: Responses must define if they are cacheable to improve efficiency (10:46).
+    8. Statelessness: Each request must contain all information necessary for the server to understand and process it (11:17).
+
+URL Design Patterns (21:54 - 31:00)
+Structure: `Scheme` (http/https), `Authority` (domain/IP), `Path` (resource hierarchy), `Query Parameters` (sorting/filtering) (21:56).
+Best Practices: Use plural nouns for resources (e.g., `/books`, not `/book`) to represent collections (27:54).
+Naming: Use lower-case, hyphen-separated words (kebab-case) for readability in URLs (29:36).
+Hierarchy: Forward slashes indicate hierarchical relationships (e.g., `/books/123/reviews`) (29:51).
+
+HTTP Methods and Idempotency (31:03 - 53:13)
+Idempotency: The property where performing the same action multiple times has the same effect as performing it once (31:19).
+CRUD Operations:
+GET: Retrieve data (Idempotent) (32:53).
+POST: Create a new resource (Not idempotent) (32:55).
+PUT: Replace a resource (Idempotent) (32:58).
+PATCH: Partially update a resource (Not strictly idempotent, but often treated as such) (33:00).
+DELETE: Remove a resource (Idempotent) (33:02).
+
+Practical API Design Workshop (53:13 - end)
+Scenario: Designing an API for a Project Management SaaS (similar to Jira or Linear) (53:17).
+Steps: Identify nouns (Organizations, Projects, Tasks), design database schema, and design API endpoints using Insomnia (58:02).
+Organization Endpoints:
+`POST /organizations` - Create (102:36).
+`GET /organizations` - List all (including pagination parameters `limit` and `page`) (105:36).
+`GET /organizations/:id` - Fetch one (107:05).
+`PATCH /organizations/:id` - Partial update (124:17).
+`DELETE /organizations/:id` - Delete (137:16).
+Project Endpoints:
+Consistent patterns applied to projects (139:35).
+`POST /projects` - Create (140:12).
+`GET /projects/:id` - Fetch one (150:09).
+Custom Actions: `POST /projects/:id/clone` - Used for non-CRUD actions like cloning a project with all its tasks (153:48).
+
+API Best Practices (196:00 - end)
+Interactive Documentation: Use tools like Swagger/OpenAPI for testing and documentation (196:51).
+Consistency: Maintain consistent payload structures (CamelCase for JSON) across all resources (197:34).
+Sensible Defaults: Define default values on the server side (e.g., default status 'active') to make client requests simpler (199:53).
+Avoid Abbreviations: Use clear, verbose field names (e.g., `description`, not `desc`) (200:35).
     
