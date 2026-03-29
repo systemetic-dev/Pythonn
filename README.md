@@ -1,3 +1,11 @@
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: HTTP Request
+    Server->>Server: Process Logic (DB, Auth, etc.)
+    Server-->>Client: HTTP Response (JSON/HTML)
+
 flowchart TD
     A[Client (Browser/App)] -->|HTTP Request| B[Server (Backend)]
     B --> C[Process Logic (DB, Auth, Business Logic)]
