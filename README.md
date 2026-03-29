@@ -68,4 +68,27 @@ Chunked Transfer: Server sends large responses in chunks rather than all at once
 11. SSL, TLS, and HTTPS (1:15:18 - End)
 SSL/TLS: Protocols for encrypting data in transit to prevent interception.
 HTTPS: HTTP running over a TLS connection.
+
+The concept of routing in backend development, focusing on how requests find their destination on a server. Routing maps a specific URL path and HTTP method to a particular handler or instruction set that processes the request.
+
+### Core Concepts of Routing
+Intent vs. Location: While HTTP methods express the "what" (action/intent) of a request (e.g., GET, POST), routing expresses the "where" (location/resource) (0:09-0:46).
+Mapping: Routing is the process of mapping a combination of an HTTP method and a URL path to specific server-side logic (1:55).
+
+### Types of Routing
+1.  Static Routes (4:35): Routes with fixed, constant paths that do not change based on user input. They always return the same type of data.
+Example: `GET /api/books` fetches a list of books (2:17).
+Example: `POST /api/books` creates a new book (3:19).
+2.  Dynamic Routes (5:24): Routes that contain variable parameters, allowing the server to extract information directly from the URL to perform actions on specific resources.
+Path Parameters (8:45): Variables embedded directly in the path, usually denoted by a colon (e.g., `:id`).
+Example: `GET /api/users/123` uses `123` as the user ID to fetch specific user details (5:30).
+3.  Query Parameters (9:09): Key-value pairs appended to the end of a URL after a question mark (`?`) to provide additional information, filter results, or send metadata, commonly used in GET requests to avoid using a body.
+Example: `GET /api/search?query=some+value` passes `some value` to the search function (9:13).
+Use Case: Pagination (`/api/books?page=2&limit=20`) to fetch specific chunks of data (12:44).
+4.  Nested Routes (15:09): A practice used to represent hierarchical relationships between resources semantically.
+Example: `GET /api/users/123/posts/456` fetches a specific post (`456`) belonging to a specific user (`123`) (15:57).
+
+### Advanced Concepts
+Route Versioning (18:54): Including version numbers (e.g., `v1`, `v2`) in the URL path to manage breaking changes and allow clients time to migrate to new APIs (19:13).
+Catch-All Route (22:18): A fallback route (`/*`) configured to handle any requests that do not match defined routes, typically returning a friendly "404 Not Found" message rather than a generic error (22:30).
     
