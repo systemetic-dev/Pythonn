@@ -558,4 +558,40 @@ Use Secrets Management Services: Utilize cloud providers to encrypt secrets at r
 Access Control: Follow the rule of least privilege. Frontend devs shouldn't have database access, only backend/DevOps teams (33:03).
 Rotate Secrets: Regularly change API keys and passwords to limit damage from leaks (33:58).
 Configuration Validation: Most Important Point: Always validate configuration at startup (e.g., using Zod in TypeScript or Go Validator) to ensure all mandatory variables are present and correctly typed. This prevents strange runtime behaviors in production (34:12).
+
+The essential backend engineering practices of logging, monitoring, and observability, explaining how they help understand system behavior in modern, distributed environments (0:00 - 3:54). While these are closely related, they serve different purposes and are implemented on a spectrum rather than a strict set of rules (0:26 - 1:07).
+
+### Core Pillars
+Logging (0:43, 8:59): The practice of recording significant events in an application's lifecycle, such as user logins, database queries, or suspicious activities, along with metadata like timestamps, user IDs, and request latency.
+Monitoring (0:56, 3:56): Keeping track of the overall state of the system in near real-time (usually with a 10-15 second delay), including server resources (CPU, memory), request rates, and database connections (4:05 - 5:10).
+Observability (1:07, 5:24): A broader concept that uses logs, metrics, and traces to understand the internal state of a system based on its external outputs (5:38).
+
+### The Observability Framework (5:34)
+To make a backend system observable, three components must be in place:
+1.  Logs: Tell you what happened (10:43).
+2.  Metrics: Show patterns and trends over time using aggregated numbers (10:49, 11:54).
+3.  Traces: Visualize the interaction of different components during a transaction, from the initial request to the final database query (11:02, 13:59).
+
+### Practical Logging Concepts (18:14)
+Log Levels (18:40):
+Debug: High detail for troubleshooting; disabled in production (19:08).
+Info: General business events (e.g., successful to-do creation) (19:30).
+Warn: Suspicious but not critical events (e.g., failed authentication attempts) (19:53).
+Error: Failures needing attention (e.g., failed database queries) (20:21).
+Fatal: Critical errors causing the application to shut down (20:33).
+Structured vs. Unstructured Logging (21:10):
+Console Logging (Unstructured): Used in development for human readability, often with colors (21:20).
+JSON Logging (Structured): Used in production for easy parsing by tools like ELK or the Grafana stack to extract valuable parameters like `user_id` (22:04, 23:17).
+
+### Implementation Example (25:31)
+The video demonstrates these concepts using a Go application and New Relic for visualization:
+Instrumentation (28:36): Actively measuring different attributes of function execution to make the system observable.
+Open Telemetry (28:48): An open standard for instrumentation, providing tools and SDKs across languages (Go, Node.js, Python) to collect data.
+Context Tracing (30:04): Creating a transaction in middleware, adding metadata (User ID, Request ID), and passing it through the context to the service and repository layers for comprehensive tracing.
+
+### Debugging Workflow (12:25, 35:05)
+1.  Alert: An alert is received (e.g., error rate > 80%).
+2.  Metrics: Check the dashboard to confirm the trend.
+3.  Logs: Jump from the metric to the related logs to see specific details.
+4.  Traces: Click on a log to view the entire request trace and identify the exact component where the failure occurred (36:44).
     
