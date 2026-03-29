@@ -683,4 +683,41 @@ Prevention: Always verify if the authenticated user has permission to access the
 Definition: Injecting malicious JavaScript that executes in a victim's browser (2:19:01).
 Danger: Stealing cookies (session hijacking), redirecting users, or performing actions on behalf of the user.
 Prevention: Sanitize user input and escape output (convert `
+
+
+foundational concepts of backend scaling and performance engineering. It emphasizes moving beyond simple metrics like averages to understand real user experiences under load.
+
+### 1. Latency & Performance Metrics (1:50)
+Latency Definition: The time it takes for a request to travel from the user to the server, be processed, and return a response.
+Why Averages are Misleading (5:25): Average latency masks the frustrating experience of a small percentage of users. If 99% of requests are fast but 1% take 5 seconds, the average might still look good, but 10,000 users per million are having a terrible experience (8:00).
+Percentiles (P50, P90, P99) (8:00):
+P50 (Median): 50% of requests are faster than this number.
+P90: 90% of requests are faster than this number.
+P99: 99% of requests are faster than this number. This is crucial for identifying the worst-case scenarios for valuable customers (13:55).
+Throughput (14:50): The number of requests a system can handle in a given timeframe (e.g., requests per second).
+Utilization & The Latency Curve (17:55): As utilization increases, latency increases exponentially, not linearly. A system running at 100% capacity will experience dramatic slow-downs and failures (27:31).
+
+### 2. Identifying Bottlenecks (28:55)
+Measure, Don't Guess: Engineers often prematurely add caching or buy more servers without identifying the true bottleneck. Use tools to measure instead of assuming the database is always the problem.
+Profiling & Distributed Tracing (36:40): Using Flame Graphs to visualize CPU usage and Distributed Tracing to pinpoint which service or database query is consuming the most time in a request workflow.
+
+### 3. Database Performance (42:55)
+N+1 Query Problem (42:55): An inefficiency where the code fetches a list of items (1 query), and then executes an additional query for each item to fetch related data (N queries). Solution: Use joins or bulk fetching.
+Indexes Deep Dive (53:55):
+Library Analogy: Searching for a book without a catalog is slow. Indexes act as that catalog for faster data retrieval.
+Trade-off: Indexes speed up reads but slow down write operations (INSERT/UPDATE/DELETE) because the index must be updated too (1:00:00).
+Tooling: Use `EXPLAIN ANALYZE` to see how the database uses indexes (1:06:40).
+Connection Pooling (1:07:20): Establishing new database connections is expensive. Connection pools reuse existing connections.
+Internal vs External (1:15:57): Internal pooling happens within application instances. External poolers (like PgBouncer) manage connections across multiple application instances to prevent exhausting database limits.
+
+### 4. Caching Strategies (1:17:35)
+Cache Hit Ratio (1:31:00): The percentage of requests served from the cache rather than the database.
+Invalidation Techniques (1:20:40):
+Time-based: Cache expires after a set period.
+Event-based: Cache is deleted immediately when data changes.
+Distributed Caching (1:23:53): Using a central cache (e.g., Redis) ensures all server instances see the same data, unlike local, in-memory caching which causes consistency issues.
+
+### 5. Scaling Strategies (1:33:40)
+Vertical Scaling (Scaling Up) (1:33:40): Adding more power (CPU, RAM, Storage) to a single machine. It is simple and doesn't require code changes.
+Horizontal Scaling (Scaling Out) (1:40:00): Adding more machines to the pool. It requires a stateless application architecture to distribute load effectively.
     
