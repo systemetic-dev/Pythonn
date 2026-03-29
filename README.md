@@ -1,4 +1,7 @@
-+----------------------+ |   Client (Browser)   | +----------------------+ │ │ HTTP Request ▼ +----------------------+ |   Server (Backend)   | +----------------------+ │ │ Process Logic (DB, Auth, etc.) ▼ +----------------------+ |   HTTP Response      | | (JSON / HTML / Data) | +----------------------+ │ ▼ +----------------------+ |   Client (Display)   | +----------------------+
+flowchart TD
+    A[Client (Browser/App)] -->|HTTP Request| B[Server (Backend)]
+    B --> C[Process Logic (DB, Auth, Business Logic)]
+    C -->|HTTP Response (JSON/HTML)| A
 
 # 🐍 Python Practice Repository
 
