@@ -776,4 +776,41 @@ Best Use Case: Event-driven architecture (file uploads, queue processing, webhoo
 3.  Prefer Simple Solutions: Complex solutions (like microservices) introduce overhead and maintenance costs.
 4.  Observability is Mandatory: Proper logging, metrics, and tracing are necessary from day one to diagnose problems quickly.
 5.  Scaling is a Mindset: It requires continuous learning from experiences, trials, and errors in production.
+
+Concurrency and parallelism for backend engineers, outlining how to build efficient, scalable web servers. The primary goal is to form a solid mental model of how servers handle multiple requests concurrently, moving beyond just knowing keywords like `async/await` to understanding the underlying mechanics (0:00-3:10).### Why Concurrency Matters (3:10)
+The Cost of Inefficiency: A synchronous server that can only handle one request at a time is impossible for production. If a server waits 100ms for a database response without concurrency, the CPU sits idle, wasting roughly 300 million potential instructions (5:55).
+IO Bound vs. CPU Bound Operations (5:55):
+IO Bound: The server spends most of its time waiting for external resources (database queries, network API calls, file system operations). In a typical app, this is 95% of the time (7:50). Concurrency allows the CPU to do other work while waiting (9:10).
+CPU Bound: The server spends time doing heavy computation (data processing, encryption, video encoding) directly on the CPU (21:01).
+Concurrency vs. Parallelism (9:44):
+Concurrency: Structuring a program to deal with multiple things at once (starting, pausing, and resuming tasks) (11:05).
+Parallelism: Doing multiple things at the same time, which requires multiple CPU cores (10:02).
+
+### The Threading Model (19:14)
+Definition: Threads are independent pieces of execution managed by the Operating System (OS). Each thread gets its own stack memory (for function calls and local variables) and an instruction pointer (23:22).
+Shared State: Threads in the same process can share memory (heap), allowing fast communication but creating risks for race conditions (29:30).
+Cost of Threads (32:20):
+Memory: Each thread has a large stack overhead (e.g., 8MB on Linux), making thousands of threads expensive (32:46).
+Context Switching: The OS scheduler pausing one thread to run another takes precious time (microseconds) and causes latency (35:14).
+
+### The Event Loop Model (37:15)
+Single Threaded: Uses a single thread to manage all IO operations, avoiding the memory overhead and context switching costs of the threading model (40:58).
+Non-blocking IO: Instead of waiting for a file or network response, the event loop registers a callback and moves on to the next request (43:03).
+Trade-off: The event loop must never be blocked by a CPU-intensive task, or the entire server freezes (41:20).
+How it Works (Under the Hood): It uses OS-level mechanisms like `epoll` (Linux) or `kqueue` (macOS) to efficiently monitor many sockets for activity (54:22).
+Async/Await as a State Machine: `async/await` are syntactic sugars that convert asynchronous code into a state machine, allowing the engine to pause execution at an `await` point and resume when the data is ready (1:15:32).
+
+### Virtual Threads & Goroutines (50:28)
+The Go Model: Go manages concurrency through Goroutines (virtual threads). These are much lighter than OS threads and are multiplexed onto a small number of actual OS threads (1:07:02).
+Go Runtime Scheduler: The runtime manages thousands of goroutines, pausing them when they block on IO and switching to another, making it extremely efficient for high-concurrency IO tasks (1:04:53).
+
+### Race Conditions & Solutions (1:15:32)
+Problem: When multiple threads try to update the same shared memory (like a counter) simultaneously, data corruption occurs (1:23:28).
+Solutions:
+Locks/Mutexes: Ensuring only one thread can access a resource at a time (1:23:28).
+Channels (Go): Passing messages between goroutines instead of sharing memory directly (1:24:52).
+
+### Summary & Key Takeaways (1:26:02)
+IO Bound: Use Event Loop (Node.js) or Virtual Threads (Go/Java) for maximum efficiency.
+CPU Bound: Use Parallelism (multiple CPU cores) to handle computation-heavy tasks quickly.
     
