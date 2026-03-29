@@ -720,4 +720,60 @@ Distributed Caching (1:23:53): Using a central cache (e.g., Redis) ensures all s
 ### 5. Scaling Strategies (1:33:40)
 Vertical Scaling (Scaling Up) (1:33:40): Adding more power (CPU, RAM, Storage) to a single machine. It is simple and doesn't require code changes.
 Horizontal Scaling (Scaling Out) (1:40:00): Adding more machines to the pool. It requires a stateless application architecture to distribute load effectively.
+
+Backend scaling and performance engineering, focusing on techniques to handle increased traffic and maintain system reliability. The key takeaway is to measure first and choose simple solutions before jumping to complex architectures.
+
+### Statelessness & Horizontal Scaling (0:43 - 9:11)
+Statelessness is the fundamental property enabling horizontal scaling (adding more machines of the same capacity) rather than vertical scaling (increasing the capacity of one machine).
+To achieve this, state must be externalized. Instead of storing user data, session data, or files locally on a server instance, you must use external systems like Redis for caching/sessions and object storage like S3 for files.
+Once the application is stateless, you can add more servers behind a load balancer to increase capacity linearly.
+
+### Load Balancers & Algorithms (9:11 - 27:47)
+Load balancers act as the traffic cop, distributing incoming internet traffic across multiple backend server instances.
+They utilize different algorithms to decide where to send traffic:
+Round Robin: Simply cycles through servers in order.
+Least Connections: Sends traffic to the server with the fewest active connections.
+IP Hash: Uses the client's IP address to ensure they always stick to the same server (useful for session persistence).
+
+### Database Scaling (Read Replicas & Sharding) (27:47 - 51:22)
+The database is often the hardest part to scale because it is stateful.
+Read Replicas: You can create copies of your database that only handle read traffic. This relieves the pressure on the primary database, which handles write traffic.
+Sharding (Partitioning): This involves dividing a massive table into smaller, faster, and more manageable parts, physically distributed across separate database instances.
+Example: Sharding an orders table by date, with orders from January-June on one server and July-December on another.
+Challenge: Choosing the right sharding key is crucial.
+Modern Trends: Distributed databases like PlanetScale (MySQL-based), Neon (Serverless Postgres), and CockroachDB automatically handle sharding and replication complexities.
+
+### CDNs & Edge Computing (51:22 - 1:05:03)
+Content Delivery Networks (CDNs) cache static content (JavaScript, CSS, images, videos) closer to the end-user geographically.
+Physics Limitation: The speed of light in fiber optic cables (approx. 200,000 km/s) causes unavoidable latency over long distances (e.g., Tokyo to Virginia).
+CDNs solve this by placing servers globally, reducing the round-trip time and significantly reducing the load on your primary data center.
+Edge Computing (1:05:03 - 1:13:25): This moves processing logic to the edge nodes (CDN nodes) rather than just serving static files. This allows for personalized content or light processing without hitting the main backend.
+
+### Asynchronous Processing (1:13:25 - 1:30:43)
+This technique improves perceived latency by offloading time-consuming tasks from the main request-response cycle.
+Example: When a user invites a team member, the server doesn't send the email synchronously. Instead, it pushes a "send email" task into a message queue (using Redis, RabbitMQ, or Kafka) and immediately responds to the user.
+A background worker then processes the task from the queue.
+Other use cases include video processing (thumbnail generation, encoding) and user data deletion.
+
+### Microservices vs Monolith (1:30:43 - 1:44:09)
+Monolith: A single, unified codebase and deployable unit. It is simpler to develop, test, and deploy, especially for smaller teams.
+Microservices: The application is broken into small, independent services based on business domain (e.g., Payments Service, Notification Service).
+Advantages: Independent scaling of modules, ability to use different technology stacks for different services, and better organization for very large teams.
+Disadvantages: High complexity in deployment, networking, and ensuring data consistency across different databases.
+
+### Serverless Computing (1:44:09 - 2:10:47)
+Serverless (e.g., AWS Lambda, Vercel Functions) means you do not manage the servers (OS, provisioning, scaling). You only provide the code.
+Benefits: Auto-scaling to zero when traffic is low (cost-effective) and automatic scaling up during spikes.
+Drawbacks:
+Cold Starts: Initial latency when a function needs to spin up.
+Execution Limits: Functions cannot run indefinitely.
+Reactive Autoscaling: Traditional autoscaling reacts to load, it doesn't predict it, which might cause lag during sudden spikes.
+Best Use Case: Event-driven architecture (file uploads, queue processing, webhook handlers).
+
+### Key Takeaways & Mental Models (2:10:47 - end)
+1.  Measure Everything: Use tools like Prometheus, Grafana, or New Relic to find actual bottlenecks rather than guessing.
+2.  Premature Optimization is the Root of All Evil: Don't build for a million users on day one.
+3.  Prefer Simple Solutions: Complex solutions (like microservices) introduce overhead and maintenance costs.
+4.  Observability is Mandatory: Proper logging, metrics, and tracing are necessary from day one to diagnose problems quickly.
+5.  Scaling is a Mindset: It requires continuous learning from experiences, trials, and errors in production.
     
