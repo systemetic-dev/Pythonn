@@ -424,4 +424,43 @@ Idempotency: Tasks should be designed to be safely executed multiple times witho
 Keep Tasks Small and Focused: Tasks should do one thing to make them easier to debug, scale, and monitor (51:38).
 Avoid Long-running Tasks: If a task takes too long, break it down into smaller, manageable chunks (53:16).
 Robust Monitoring: Track queue length, successful tasks, failed tasks, and worker health using tools like Prometheus and Grafana (48:32).
+
+Comprehensive overview of Full-Text Search using Elasticsearch, contrasting it with traditional relational database querying techniques. The presentation highlights the limitations of SQL `LIKE` queries for searching large datasets and introduces the inverted index as the solution for blazing-fast search, along with relevance scoring.
+
+### The Problem with Traditional SQL Search (0:00 - 3:02)
+Scenario: In 2005, an e-commerce company grows rapidly from 5,000 to millions of products.
+Original Approach: Using SQL queries like `SELECT * FROM products WHERE name LIKE '%laptop%' OR description LIKE '%laptop%'` (0:49).
+The Issue: While fine for small datasets, this approach becomes painfully slow on large databases, scaling poorly from 50 milliseconds to 30 seconds or more for results (1:46).
+Fatal Flaw: Relational databases act like a librarian forced to scan every single page of every book in a library to find a term (3:41).
+Lack of Relevance: SQL `LIKE` queries return results in a random order, often displaying irrelevant items (e.g., a "laptop bag") before highly relevant ones (e.g., a "MacBook Pro") (2:07, 7:00).
+
+### The Solution: Inverted Index & Elasticsearch (8:50 - 15:51)
+Concept: Instead of searching through documents (rows) to find terms, store an index of terms and map them to the documents that contain them (8:57).
+How Inverted Index Works:
+When storing a book, catalog all words.
+Example: For the term "machine", the index maps it to: Introduction to Machine Learning (Pages 1, 15, 23), The Machine Age (Pages 5, 89) (10:40).
+Apache Lucene: The underlying open-source search library that powers Elasticsearch and other full-text search tools (12:15).
+Relevance Scoring: Elasticsearch uses algorithms to determine which results matter most, boosting scores if a term appears in the title versus just the description (14:44).
+
+### Elasticsearch Features & Algorithms (16:15 - 20:50)
+BM25 Algorithm: The formula used to calculate relevance (16:17).
+Ranking Factors:
+    1.  Term Frequency: How often a term appears in a single document (17:01).
+    2.  Document Frequency: How common a term is across all documents (17:30).
+    3.  Document Length: Shorter documents may rank higher if the term appears often (17:41).
+    4.  Field Boosting: Prioritizing certain fields (e.g., Title > Description > Content) (17:50).
+Typo Tolerance: Elasticsearch can intelligently correct typos (e.g., interpreting "treading" as "trending") (20:12).
+Type-Ahead Interface: Powering search bars that provide suggestions while typing (19:44).
+
+### Practical Comparison & Benchmark (22:05 - 30:57)
+Setup: A Next.js project comparing Neon Postgres (relational) with Elastic Cloud (Elasticsearch) on 50,000 records (22:12).
+Data Structure: Reviewed JSON documents containing a `review` (text) and `sentiment` (keyword) (26:01).
+Demo Results:
+Elasticsearch: Consistently returned search results for "laptop" in roughly 500 milliseconds to 1 second (30:08).
+Postgres (`LIKE` query): Took roughly 3 to 7.5 seconds for the same queries (30:40).
+
+### Conclusion & Best Practices (31:00 - 32:08)
+When to use Elasticsearch: For full-text search, type-ahead features, and handling typo tolerance (31:01).
+ELK Stack: Elasticsearch is also widely used for log management (Elasticsearch, Kibana, Logstash) (21:24).
+Engineering Advice: While knowing Elasticsearch is valuable, mastering core database fundamentals (indexing, query optimization) is more critical for a backend engineer (31:15).
     
