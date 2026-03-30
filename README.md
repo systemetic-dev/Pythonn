@@ -648,7 +648,7 @@ Chunked Transfer: Server sends large responses in chunks rather than all at once
 SSL/TLS: Protocols for encrypting data in transit to prevent interception.
 HTTPS: HTTP running over a TLS connection.
 
-The concept of routing in backend development, focusing on how requests find their destination on a server. Routing maps a specific URL path and HTTP method to a particular handler or instruction set that processes the request.]
+The concept of routing in backend development, focusing on how requests find their destination on a server. Routing maps a specific URL path and HTTP method to a particular handler or instruction set that processes the request.]```
 
 # 🚀 Core Concepts of Routing
 
