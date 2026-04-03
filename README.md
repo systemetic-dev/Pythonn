@@ -590,7 +590,8 @@ Client → Request with ETag Server → Compare ├── Same → 304 Not Modif
 
 ---
 
- -[Key concepts of HTTP for backend engineers:
+ -[
+     Key concepts of HTTP for backend engineers:
 
 1. HTTP Introduction and Core Principles
 Statelessness: HTTP has no memory of past interactions. Each request is self-contained and must carry all necessary information (headers, auth tokens) for the server to process it. Benefits include simplicity and scalability (requests can be distributed across multiple servers).
