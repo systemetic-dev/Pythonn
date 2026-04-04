@@ -911,7 +911,7 @@ Converting that common format back into a **usable data structure**.
 
 
 
--[###Serialization and Deserialization for Backend Engineers:
+-###Serialization and Deserialization for Backend Engineers:
 
 1. Introduction to Client-Server Communication:
 Front-end (Client): Typically a browser (like Chrome) running a JavaScript app (React, Angular, Vue).
@@ -958,7 +958,7 @@ Server Processing (Deserialization): The Rust server receives the data, converts
 Response: The server serializes the result back into JSON to send to the client.
 
 7. Summary:
-Serialization and Deserialization are essential techniques for ensuring data is understandable across different languages and environments.]
+Serialization and Deserialization are essential techniques for ensuring data is understandable across different languages and environments.
 
 
 # 🔐 Authentication & Authorization for Backend Engineers
