@@ -898,8 +898,7 @@ Converting that common format back into a **usable data structure**.
   - Nested objects
 
 ### 📄 Example
-
-```json
+json
 {
   "name": "John",
   "age": 30,
