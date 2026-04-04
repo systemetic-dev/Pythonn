@@ -898,7 +898,7 @@ Converting that common format back into a **usable data structure**.
   - Nested objects
 
 ### 📄 Example
-json
+```json
 {
   "name": "John",
   "age": 30,
@@ -907,7 +907,7 @@ json
     "phone": 123456
   }
 }
-
+```
 ---
 
 - ### Serialization and Deserialization for Backend Engineers:
