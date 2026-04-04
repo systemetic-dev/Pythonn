@@ -909,9 +909,9 @@ Converting that common format back into a **usable data structure**.
   }
 }
 
+---
 
-
--###Serialization and Deserialization for Backend Engineers:
+- ### Serialization and Deserialization for Backend Engineers:
 
 1. Introduction to Client-Server Communication:
 Front-end (Client): Typically a browser (like Chrome) running a JavaScript app (React, Angular, Vue).
