@@ -1239,7 +1239,7 @@ Security Best Practices:
 Generic Error Messages: Avoid revealing specific reasons for authentication failure (e.g., use "Invalid email or password" instead of "User not found") to prevent attackers from enumerating valid users .
 Timing Attacks: Attackers can measure how long a server takes to respond to infer if a username exists. Countermeasures include using constant-time comparison functions for hashes or simulating a response delay to normalize response times.]
 
-The critical role of validation and transformation pipelines in backend application development, focusing on data integrity and security. The speaker details the layered architecture of a backend app and how data flows through it (0:00 - 3:50).Backend Architecture Layers: (0:33)
+- [ The critical role of validation and transformation pipelines in backend application development, focusing on data integrity and security. The speaker details the layered architecture of a backend app and how data flows through it (0:00 - 3:50).Backend Architecture Layers: (0:33)
 Repository Layer (Bottom): Manages database connections, queries, insertions, and deletions (relational or NoSQL) (0:33-0:55).
 Service Layer (Middle): Executes core business logic, calls repository methods, handles notifications, and triggers webhooks (0:59-1:44).
 Controller Layer (Top): Handles HTTP-related stuff (error codes, success status), manages incoming client data, calls the service layer, and returns formatted data to the user (1:48-3:28).Where Validations & Transformations Occur: (3:53)
@@ -1254,7 +1254,7 @@ Password Matching: Ensures the `password` and `confirmPassword` fields are ident
 Conditional Validation: If a `married` field is `true`, a `partnerName` field becomes mandatory (31:58-33:05).Frontend vs. Backend Validation: (37:24)
 Frontend Validation: Essential for User Experience (UX); provides immediate feedback to the user (38:43-39:02).
 Backend Validation: Mandatory for Security and Data Integrity; prevents malicious or corrupt data from reaching the database (39:04-39:35).
-Crucial Takeaway: Never trust the client. Backend validation must exist independently of frontend validation, as direct API hits (via tools like Postman/Insomnia) bypass frontend checks (39:37-40:48).
+Crucial Takeaway: Never trust the client. Backend validation must exist independently of frontend validation, as direct API hits (via tools like Postman/Insomnia) bypass frontend checks (39:37-40:48).]
 
 The backend request lifecycle, explaining how a request travels from the client, through the server, and back. The instructor breaks down the responsibilities of controllers, services, repositories, middlewares, and request context.
 
